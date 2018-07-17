@@ -33,7 +33,7 @@
                 <label asp-for="ContactId" class="control-label"></label>
 
                 <select asp-for="ContactId"
-                        asp-items="@(new SelectList(Model.AssignmentGroups,"Id","FullName"))">
+                        asp-items="@(new SelectList(Model.Contacts,"Id","FullName"))">
                     <option>Please select a contact</option>
                 </select>
 

@@ -75,7 +75,10 @@ namespace HelpdeskApp.Controllers
             }
 
             var dataItem = await _context.Items
-                .FirstOrDefaultAsync(m => m.Id == id);
+                                .Include(i => i.AssignmentGroup)
+                                .Include(i => i.Contact)
+                                .SingleOrDefaultAsync(x => x.Id == id);
+                
             if (dataItem == null)
             {
                 return NotFound();
@@ -129,17 +132,23 @@ namespace HelpdeskApp.Controllers
                 return NotFound();
             }
 
-            var dataItem = await _context.Items.FindAsync(id);
+            var dataItem = await _context.Items
+                                .Include(i => i.AssignmentGroup)
+                                .Include(i => i.Contact)
+                                .SingleOrDefaultAsync(x => x.Id == id);
+                               
             if (dataItem == null)
             {
                 return NotFound();
             }
             return View(new EditViewModel
             {
-                //AssignmentGroupId = dataItem.AssignmentGroup.Id,
+                AssignmentGroupId = dataItem.AssignmentGroup.Id,
                 Id = dataItem.Id,
                 Description = dataItem.Description,
-                //ContactId = dataItem.Contact.Id
+                ContactId = dataItem.Contact.Id,
+                AssignmentGroups = await _context.Groups.ToListAsync(),
+                Contacts = await _context.Contacts.ToListAsync()
             });
         }
 
@@ -148,7 +157,7 @@ namespace HelpdeskApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] DataItem dataItem)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Description, AssignmentGroupId, ContactId")] DataItem dataItem)
         {
             if (id != dataItem.Id)
             {
