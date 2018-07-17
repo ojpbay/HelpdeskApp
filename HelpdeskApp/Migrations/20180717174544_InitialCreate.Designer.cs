@@ -4,14 +4,16 @@ using HelpdeskApp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HelpdeskApp.Migrations
 {
     [DbContext(typeof(HelpdeskAppContext))]
-    partial class HelpdeskAppContextModelSnapshot : ModelSnapshot
+    [Migration("20180717174544_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,12 +32,6 @@ namespace HelpdeskApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Groups");
-
-                    b.HasData(
-                        new { Id = 1, Name = "Desktop support" },
-                        new { Id = 2, Name = "Helpdesk" },
-                        new { Id = 3, Name = "Application support" }
-                    );
                 });
 
             modelBuilder.Entity("HelpdeskApp.Models.Contact", b =>
@@ -49,12 +45,6 @@ namespace HelpdeskApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Contacts");
-
-                    b.HasData(
-                        new { Id = 1, FullName = "Brad Bobley" },
-                        new { Id = 2, FullName = "Bob Bradley" },
-                        new { Id = 3, FullName = "Chris Crosby" }
-                    );
                 });
 
             modelBuilder.Entity("HelpdeskApp.Models.DataItem", b =>
@@ -76,29 +66,16 @@ namespace HelpdeskApp.Migrations
                     b.HasIndex("ContactId");
 
                     b.ToTable("Items");
-
-                    b.HasData(
-                        new { Id = 1, AssignmentGroupId = 1, ContactId = 1, Description = "NullaPede.mov" },
-                        new { Id = 2, AssignmentGroupId = 1, ContactId = 1, Description = "NecNisiVolutpat.ppt" },
-                        new { Id = 3, AssignmentGroupId = 1, ContactId = 1, Description = "JustoPellentesque.tiff" },
-                        new { Id = 4, AssignmentGroupId = 2, ContactId = 1, Description = "LobortisSapienSapien.xls" },
-                        new { Id = 5, AssignmentGroupId = 2, ContactId = 2, Description = "ConsequatVarius.mp3" },
-                        new { Id = 6, AssignmentGroupId = 2, ContactId = 2, Description = "BibendumMorbi.xls" },
-                        new { Id = 7, AssignmentGroupId = 2, ContactId = 3, Description = "Parturient.tiff" },
-                        new { Id = 8, AssignmentGroupId = 3, ContactId = 3, Description = "AugueVestibulum.pdf" },
-                        new { Id = 9, AssignmentGroupId = 3, ContactId = 3, Description = "NibhLigula.png" },
-                        new { Id = 10, AssignmentGroupId = 3, ContactId = 3, Description = "IpsumPrimisIn.jpeg" }
-                    );
                 });
 
             modelBuilder.Entity("HelpdeskApp.Models.DataItem", b =>
                 {
                     b.HasOne("HelpdeskApp.Models.AssignmentGroup", "AssignmentGroup")
-                        .WithMany("DataItems")
+                        .WithMany()
                         .HasForeignKey("AssignmentGroupId");
 
                     b.HasOne("HelpdeskApp.Models.Contact", "Contact")
-                        .WithMany("DataItems")
+                        .WithMany()
                         .HasForeignKey("ContactId");
                 });
 #pragma warning restore 612, 618

@@ -7,7 +7,8 @@ namespace HelpdeskApp.Models
 {
     public class FilterItems
     {
-        public string NameFilter { get; set; }
-        public string LastNameFilter { get; set; }
+        public string AssignmentGroupFilter { get; set; }
+        public string DescriptionFilter { get; set; }
+        public string ContactFilter { get; set; }
     }
 }

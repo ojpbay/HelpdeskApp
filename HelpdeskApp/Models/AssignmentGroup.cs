@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace HelpdeskApp.Models
 {
-    public class DataItem
+    public class AssignmentGroup
     {
         public int Id { get; set; }
-        public string Description { get; set; }
-        public Contact Contact { get; set; }
-        public AssignmentGroup AssignmentGroup { get; set; }
+        public string Name { get; set; }
+        public List<DataItem> DataItems { get; set; }
     }
 }
