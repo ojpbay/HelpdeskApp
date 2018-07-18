@@ -4,18 +4,30 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Search helpdesk blah blah</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
 
-@using (Html.BeginForm("Search", "Home", FormMethod.Get))
+@using (Html.BeginForm("Search", "Home", FormMethod.Get, new { id = "searchForm", @class = "form-inline" }))
 {
-    @Html.TextBox("AssignmentGroupFilter")
-    @Html.TextBox("DescriptionFilter")
-    @Html.TextBox("ContactFilter")
-    <input type="submit" value="Search" />
+    <div class="form-group">
+            @Html.TextBox("AssignmentGroupFilter", "", new { @class = "form-control", @placeholder = "Assignment group" })
+    </div>
+
+    <div class="form-group">
+            @Html.TextBox("DescriptionFilter", "", new { @class = "form-control", @placeholder = "Description" })
+    </div>
+
+    <div class="form-group">
+            @Html.TextBox("ContactFilter", "", new { @class = "form-control", @placeholder = "Contact" })
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Search" />
+
+        @Html.ActionLink("Clear", "Index", "Home")
+    </div>
 }
 
 <table class="table">
@@ -55,3 +67,7 @@
         }
     </tbody>
 </table>
+
+<script>
+
+</script>

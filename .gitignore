@@ -4,4 +4,4 @@
 *.suo
 HelpdeskApp\bin
 HelpdeskApp\obj
-.vs
+./.vs/*
