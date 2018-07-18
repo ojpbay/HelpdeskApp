@@ -13,26 +13,28 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="AssignmentGroupId" class="control-label"></label>
+                <label asp-for="AssignmentGroupId" ></label>
 
                 <select asp-for="AssignmentGroupId"
-                        asp-items="@(new SelectList(Model.AssignmentGroups,"Id","Name"))">
+                        asp-items="@(new SelectList(Model.AssignmentGroups,"Id","Name"))"
+                        class="form-control">
                     <option>Please select a group</option>
                 </select>
 
                 <span asp-validation-for="AssignmentGroupId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
+                <label asp-for="Description" ></label>
                 <input asp-for="Description" class="form-control" placeholder="Enter a description" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="ContactId" class="control-label"></label>
+                <label asp-for="ContactId" ></label>
 
                 <select asp-for="ContactId"
-                        asp-items="@(new SelectList(Model.AssignmentGroups,"Id","FullName"))">
+                        asp-items="@(new SelectList(Model.Contacts,"Id","FullName"))"
+                        class="form-control">
                     <option>Please select a contact</option>
                 </select>
 

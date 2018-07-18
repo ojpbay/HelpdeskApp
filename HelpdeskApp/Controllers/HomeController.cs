@@ -113,7 +113,7 @@ namespace HelpdeskApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name, LastName")] DataItem dataItem)
+        public async Task<IActionResult> Create([Bind("Id,Description, ContactId, AssignmentGroupId")] DataItem dataItem)
         {
             if (ModelState.IsValid)
             {
@@ -157,7 +157,7 @@ namespace HelpdeskApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Description, AssignmentGroupId, ContactId")] DataItem dataItem)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Description, AssignmentGroupId, ContactId")] EditViewModel dataItem)
         {
             if (id != dataItem.Id)
             {
@@ -168,8 +168,12 @@ namespace HelpdeskApp.Controllers
             {
                 try
                 {
-                    _context.Update(dataItem);
-                    await _context.SaveChangesAsync();
+                    var itemToUpdate = _context.Items.SingleOrDefault(x => x.Id == dataItem.Id);
+                    if (await TryUpdateModelAsync<DataItem>(itemToUpdate, "", s => s.Description, s => s.Description, s => s.AssignmentGroup))
+                    {
+                        _context.Update(itemToUpdate);
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
