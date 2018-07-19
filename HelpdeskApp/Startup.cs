@@ -35,7 +35,7 @@ namespace HelpdeskApp
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=HelpDdeskApp.Db;Trusted_Connection=True;ConnectRetryCount=0";
+            var connection = Configuration.GetConnectionString("HelpDeskAppDatabase");
             services.AddDbContext<HelpdeskAppContext>(options => options.UseSqlServer(connection));
         }
 
